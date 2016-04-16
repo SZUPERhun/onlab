@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "codingsans/babel",
+    "codingsans/mochaTestExt"
+  ],
+  "parser": "babel-eslint"
+}

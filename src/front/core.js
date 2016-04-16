@@ -1,0 +1,1 @@
+var appFront = angular.module('appFront', []);

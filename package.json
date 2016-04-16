@@ -1,0 +1,62 @@
+{
+  "name": "onlab",
+  "version": "0.0.1",
+  "description": "event organizer",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node src/back/app.js",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register src/back/tests/*.js --require babel-polyfill",
+    "test_win": "set NODE_ENV=test&& mocha --compilers js:babel-register src/back/tests/*.js --require babel-polyfill",
+    "lint": "eslint src/back",
+    "build": "babel src/back -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:SZUPERhun/onlab.git"
+  },
+  "keywords": [
+    "events"
+  ],
+  "author": "Peti & Karesz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SZUPERhun/onlab/issues"
+  },
+  "homepage": "https://github.com/SZUPERhun/onlab#readme",
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-route": "^1.5.3",
+    "babel-plugin-transform-async-to-generator": "^6.7.4",
+    "body-parser": "~1.13.2",
+    "bootstrap": "^3.3.6",
+    "clarify": "^1.0.5",
+    "convict": "^1.1.2",
+    "debug": "~2.2.0",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.3.0",
+    "jquery": "^2.2.3",
+    "jsonwebtoken": "^5.7.0",
+    "mongodb": "~2.1.7",
+    "mongoose": "^4.4.7",
+    "morgan": "~1.6.1",
+    "path": "^0.12.7",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-eslint": "^6.0.0",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "chance": "^1.0.1",
+    "eslint": "^1.10.3",
+    "eslint-config-codingsans": "^1.2.0",
+    "mocha": "^2.4.5",
+    "source-map-support": "^0.4.0",
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.0.0"
+  }
+}
