@@ -27,6 +27,20 @@ const conf = convict({
     env: 'DB_HOST',
     arg: 'dbHost',
   },
+  apiUrl: {
+    doc: 'Address of the api.',
+    format: String,
+    default: 'Did you expect an url? It will cause an error sometime.',
+    env: 'API_URL',
+    arg: 'apiUrl',
+  },
+  secret: {
+    doc: 'Secret of the application.',
+    format: String,
+    default: 'The cake is a lie.',
+    env: 'SECRET',
+    arg: 'secret',
+  },
 });
 
 // Load environment dependent configuration

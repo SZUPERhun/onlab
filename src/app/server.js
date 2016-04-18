@@ -3,27 +3,47 @@ import express from 'express';
 import mongoose from 'mongoose';
 import http from 'http';
 import bodyParser from 'body-parser';
+import session  from 'express-session';
+import expressJwt  from 'express-jwt';
 import path from 'path';
 
 import winston from 'winston';
 import 'clarify';
 
 import index from './routes/index';
-import users from './routes/users';
+import login from './routes/login.api.js';
+import register from './routes/register.api.js';
+import users from './routes/user.api.js';
 import conf from './config';
 
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname + '/../front', 'views'));
+app.set('views', path.join(__dirname + '/../public', 'views'));
 app.set('view engine', 'ejs');
 
-// set the static files location /front/img will be /img for users
-app.use(express.static(__dirname + '/../front'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(session({ 
+  secret: conf.secret,
+  resave: false, 
+  saveUninitialized: true 
+}));
+// use JWT auth to secure the api
+//app.use('/api', expressJwt({ secret: conf.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
+
+
+
+// set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/../public'));
 // redirect JS Angular
 app.use('/js', express.static(__dirname + '/../../node_modules/angular'));
-// redirect JS Angular Route
-app.use('/js', express.static(__dirname + '/../../node_modules/angular-route'));
+// redirect JS Angular UI Route
+app.use('/js', express.static(__dirname + '/../../node_modules/angular-ui-router/release'));
+// redirect JS Angular Resource
+app.use('/js', express.static(__dirname + '/../../node_modules/angular-resource'));
 // redirect JS bootstrap 
 app.use('/js', express.static(__dirname + '/../../node_modules/bootstrap/dist/js'));
 // redirect JS jQuery
@@ -31,13 +51,11 @@ app.use('/js', express.static(__dirname + '/../../node_modules/jquery/dist'));
 // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/../../node_modules/bootstrap/dist/css'));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
 
 app.use('/', index);
 app.use('/api/users', users);
+app.use('/login', login);
+app.use('/register', register);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(conf.database, function(err) {

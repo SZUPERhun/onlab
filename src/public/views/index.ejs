@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="appFront">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Front App</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+    <!-- header -->
+    <%- include('partials/header.html') %>
+
+    <!-- main -->
+    <main ui-view></main>
+
+    <!-- footer -->
+    <%- include('partials/footer.html') %>
+
+    <!-- external scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.js"></script>
+    <script src="/js/angular-ui-router.js"></script>
+    <script src="/js/angular-resource.js"></script>
+
+    <!-- application scripts -->
+    <script src="../app.js"></script>
+    <script src="../modules/userModule.js"></script>
+    <script src="../modules/indexModule.js"></script>
+    <script src="../controllers/indexController.home.js"></script>
+    <script src="../controllers/userController.js"></script>
+    <script src="../controllers/userDetailController.js"></script>
+    <script src="../services/user.service.js"></script>
+    <script src="../services/flash.service.js"></script>
+    <script src="../factories/userFactory.js"></script>
+    <script src="../routers/userRouter.js"></script>
+    <script src="../routers/indexRouter.js"></script>
+
+</body>
+</html>

@@ -1,5 +1,9 @@
 import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 import User from '../models/user';
+import conf from '../config';
 
 const router = express.Router();
 
@@ -49,6 +53,40 @@ router.delete('/:id', async function(req, res, next) {
   try {
     const user = await User.findByIdAndRemove(
       req.params.id, req.body);
+    return res.json(user);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+/* POST /api/users/register */
+router.post('/register', async function(req, res, next) {
+  try {
+    const user = await User.create(req.body);
+    return res.json(user);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+/* POST /api/users/authenticate */
+router.post('/authenticate', async function(req, res, next) {
+  try {
+    let token;
+    const user = await User.findOne({ name: req.body.name });
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      token = jwt.sign({sub: user._id}, conf.secret)
+    }
+    return res.json({ token: token });
+  } catch (e) {
+    return next(e);
+  }
+});
+
+/* GET /api/users/current */
+router.get('/current', async function(req, res, next) {
+  try {
+    const user = await User.findById(req.user.sub);
     return res.json(user);
   } catch (e) {
     return next(e);

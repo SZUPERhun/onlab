@@ -1,0 +1,4 @@
+{
+  "database": "mongodb://localhost/onlab-test",
+  "apiUrl":  "http://localhost:3000/api"
+}

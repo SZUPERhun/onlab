@@ -1,0 +1,12 @@
+<ul>
+    <li ng-repeat="user in users">
+        <input type="checkbox" ng-model="user.completed" ng-change="update($index)">
+        <a ng-show="!editing[$index]" href="#/{{user._id}}">{{user.name}}</a>
+        <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
+        <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+
+        <input ng-show="editing[$index]" type="text" ng-model="user.name">
+        <button ng-show="editing[$index]" ng-click="update($index)">update</button>
+        <button ng-show="editing[$index]" ng-click="cancel($index)">cancel</button>
+    </li>
+</ul>
