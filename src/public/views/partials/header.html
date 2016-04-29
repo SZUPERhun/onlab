@@ -1,7 +1,9 @@
 <header>
     <ul class="nav nav-tabs">
-        <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
-        <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+        <li ng-class="{active: activeTab === 'home'}"><a ui-sref="index.home">Home</a></li>
+        <li ng-class="{active: activeTab === 'events'}"><a ui-sref="events.list">Events</a></li>
+        <li ng-class="{active: activeTab === 'users'}"><a ui-sref="users.list">Users</a></li>
+        <li ng-class="{active: activeTab === 'profile'}"><a ui-sref="profile.home">Profile</a></li>
         <li><a href="/login" target="_self">Logout</a></li>
     </ul>
     <div class="flash-message" ng-if="flash">

@@ -26,7 +26,6 @@ router.post('/', function (req, res) {
       return res.render('login', 
         { error: 'An error occurred' });
     }
-
     if (!body.token) {
       return res.render('login', 
         { error: 'Username or password is incorrect', username: req.body.username });

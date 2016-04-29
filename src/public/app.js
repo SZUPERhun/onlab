@@ -1,4 +1,7 @@
-angular.module('appFront', ['user', 'index'])
+angular.module('appFront', ['ui.router', 'index', 'event', 'user', 'profile'])
+  .config(function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  })
   .run(run);
 
 function run($http, $rootScope, $window) {
@@ -17,6 +20,6 @@ $(function () {
   $.get('/token', function (token) {
     window.jwtToken = token;
 
-    angular.bootstrap(document, ['appFront']);
+    //angular.bootstrap(document, ['appFront']);
   });
 });

@@ -27,8 +27,8 @@ router.post('/', async function(req, res, next) {
   }
 });
 
-/* GET /api/users/id */
-router.get('/:id', async function(req, res, next) {
+/* GET /api/users/id/:id */
+router.get('/id/:id', async function(req, res, next) {
   try {
     const user = await User.findById(req.params.id);
     return res.json(user);
@@ -37,8 +37,8 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-/* PUT /api/users/id */
-router.put('/:id', async function(req, res, next) {
+/* PUT /api/users/id/:id */
+router.put('/id/:id', async function(req, res, next) {
   try {
     const user = await User.findByIdAndUpdate(
       req.params.id, req.body, { new: true });
@@ -48,8 +48,8 @@ router.put('/:id', async function(req, res, next) {
   }
 });
 
-/* DELETE /api/users/id */
-router.delete('/:id', async function(req, res, next) {
+/* DELETE /api/users/id/:id */
+router.delete('/id/:id', async function(req, res, next) {
   try {
     const user = await User.findByIdAndRemove(
       req.params.id, req.body);
@@ -86,8 +86,8 @@ router.post('/authenticate', async function(req, res, next) {
 /* GET /api/users/current */
 router.get('/current', async function(req, res, next) {
   try {
-    const user = await User.findById(req.user.sub);
-    return res.json(user);
+    const user = await User.findById(jwt.decode(req.session.token, conf.secret).sub);
+      return res.json(user);
   } catch (e) {
     return next(e);
   }

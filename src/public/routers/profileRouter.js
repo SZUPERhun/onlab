@@ -1,21 +1,21 @@
-angular.module('index')
+angular.module('profile')
   .config(function ($stateProvider, $urlRouterProvider){
     // default route
     $urlRouterProvider.otherwise("/");
-  
+
     $stateProvider
-      .state('index', {
+      .state('profile', {
         abstract: true,
         url: '',
         template: '<ui-view/>',
-        controller: 'IndexController',
+        controller: 'ProfileController',
         controllerAs: 'vm',
-        data: { activeTab: 'home' },
+        data: { activeTab: 'profile' },
       })
-      .state('index.home', {
+      .state('profile.home', {
         url: '',
-        templateUrl: 'views/index/index.home.html',
+        templateUrl: 'views/profile/profile.home.html',
       });
-    
+
   });
 

@@ -1,17 +1,17 @@
-angular.module('index')
-  .controller('Home.IndexController', Controller);
+angular.module('profile')
+  .controller('ProfileController', Controller);
 
 function Controller(UserService) {
   const vm = this;
 
-  vm.user = null;
+  vm.currentUser = null;
 
   initController();
 
   function initController() {
     // get current user
     UserService.GetCurrent().then(function (user) {
-      vm.user = user;
+      vm.currentUser = user;
     });
   }
 }

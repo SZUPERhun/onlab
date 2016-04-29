@@ -1,1 +1,1 @@
-angular.module('user', ['ui.router', 'ngResource']);
+angular.module('user', ['ui.router']);

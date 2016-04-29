@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', function(req, res) {
   if (req.path !== '/login' && !req.session.token) {
-    return res.redirect('/login?returnUrl=' + encodeURIComponent('/' + req.path));
+    return res.redirect('/login'/* + '?returnUrl=' + encodeURIComponent('/' + req.path)*/);
   }
   return res.render('index');
 });

@@ -5,14 +5,20 @@ angular.module('user')
 
     $stateProvider
       .state('users', {
-        url: '/',
-        templateUrl: '/views/users.html',
-        controller: 'UserController'
+        abstract: true,
+        url: '/users',
+        templateUrl: '/views/users/users.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+        data: { activeTab: 'users' }
+      })
+      .state('users.list', {
+        url: '',
+        templateUrl: '/views/users/users.list.html',
       })
 
-      .state('user.detail', {
-        url: '/:id',
-        templateUrl: '/views/userDetail.html',
-        controller: 'UserDetailController'
+      .state('users.detail', {
+        url: '/id/:id',
+        templateUrl: '/views/users/users.detail.html',
       });
   });

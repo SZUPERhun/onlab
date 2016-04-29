@@ -1,4 +1,3 @@
-
 import express from 'express';
 import mongoose from 'mongoose';
 import http from 'http';
@@ -14,6 +13,7 @@ import index from './routes/index';
 import login from './routes/login.api.js';
 import register from './routes/register.api.js';
 import users from './routes/user.api.js';
+import events from './routes/event.api.js';
 import conf from './config';
 
 const app = express();
@@ -32,7 +32,7 @@ app.use(session({
   saveUninitialized: true 
 }));
 // use JWT auth to secure the api
-//app.use('/api', expressJwt({ secret: conf.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
+app.use('/api', expressJwt({ secret: conf.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
 
 
@@ -54,6 +54,7 @@ app.use('/css', express.static(__dirname + '/../../node_modules/bootstrap/dist/c
 
 app.use('/', index);
 app.use('/api/users', users);
+app.use('/api/events', events);
 app.use('/login', login);
 app.use('/register', register);
 

@@ -1,37 +1,54 @@
 angular.module('user')
-  .controller('UserController', ['$scope', 'Users', function ($scope, Users) {
-    $scope.editing = [];
-    $scope.users = Users.query();
+  .controller('UserController', Controller);
 
-    $scope.save = function(){
-      if(!$scope.newUser || $scope.newUser.length < 1) return;
-      var user = new Users({ name: $scope.newUser, completed: false });
+function Controller($rootScope, $state, $window, UserService, FlashService) {
+  const vm = this;
 
-      user.$save(function(){
-        $scope.users.push(user);
-        $scope.newUser = ''; // clear textbox
+  vm.user = null;
+  vm.users = null;
+  vm.currentUser = null;
+  vm.saveUser = saveUser;
+  vm.deleteUser = deleteUser;
+
+  initController();
+
+  function initController() {
+    // get current user
+    UserService.GetCurrent().then(function (user) {
+      vm.currentUser = user;
+    });
+    UserService.GetAll().then(function (users) {
+      vm.users = users;
+    });
+    $rootScope.$on('$stateChangeStart',
+      function(event, toState, toParams, fromState, fromParams, options) {
+        if (toParams.id) {
+          UserService.GetById(toParams.id).then(function (user) {
+            vm.user = user;
+          });
+        }
+    });
+  }
+
+  function saveUser() {
+    UserService.Update(vm.user)
+      .then(function () {
+        FlashService.Success('User updated');
+      })
+      .catch(function (error) {
+        FlashService.Error(error);
       });
-    };
+  }
 
-    $scope.update = function(index){
-      var user = $scope.users[index];
-      Users.update({id: user._id}, user);
-      $scope.editing[index] = false;
-    };
-
-    $scope.edit = function(index){
-      $scope.editing[index] = angular.copy($scope.users[index]);
-    };
-
-    $scope.cancel = function(index){
-      $scope.users[index] = angular.copy($scope.editing[index]);
-      $scope.editing[index] = false;
-    };
-
-    $scope.remove = function(index){
-      var user = $scope.users[index];
-      Users.remove({id: user._id}, function(){
-        $scope.users.splice(index, 1);
+  function deleteUser() {
+    UserService.Delete(vm.user._id)
+      .then(function () {
+        // log user out
+        $window.location = '/login';
+      })
+      .catch(function (error) {
+        FlashService.Error(error);
       });
-    };
-  }]);
+  }
+  
+}
