@@ -6,7 +6,7 @@ angular.module('index')
     $stateProvider
       .state('index', {
         abstract: true,
-        url: '',
+        url: '/',
         template: '<ui-view/>',
         controller: 'IndexController',
         controllerAs: 'vm',

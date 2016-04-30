@@ -69,20 +69,6 @@ router.post('/register', async function(req, res, next) {
   }
 });
 
-/* POST /api/users/authenticate */
-router.post('/authenticate', async function(req, res, next) {
-  try {
-    let token;
-    const user = await User.findOne({ name: req.body.name });
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      token = jwt.sign({sub: user._id}, conf.secret)
-    }
-    return res.json({ token: token });
-  } catch (e) {
-    return next(e);
-  }
-});
-
 /* GET /api/users/current */
 router.get('/current', async function(req, res, next) {
   try {

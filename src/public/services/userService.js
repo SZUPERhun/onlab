@@ -5,6 +5,7 @@ function Service($http, $q) {
   const service = {};
 
   service.GetCurrent = GetCurrent;
+  service.GetToken = GetToken;
   service.GetAll = GetAll;
   service.GetById = GetById;
   /*service.GetByUsername = GetByUsername;*/
@@ -16,6 +17,14 @@ function Service($http, $q) {
 
   function GetCurrent() {
     return $http.get('/api/users/current').then(handleSuccess, handleError);
+  }
+
+  function GetToken() {
+    return $http.get('/token')
+      .then(
+        function(token){console.log(token)},
+        function(){console.log('hiba')})
+      .then(handleSuccess, handleError);
   }
 
   function GetAll() {

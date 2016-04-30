@@ -10,10 +10,11 @@ import winston from 'winston';
 import 'clarify';
 
 import index from './routes/index';
-import login from './routes/login.api.js';
-import register from './routes/register.api.js';
-import users from './routes/user.api.js';
-import events from './routes/event.api.js';
+import login from './routes/login.api';
+import register from './routes/register.api';
+import users from './routes/user.api';
+import events from './routes/event.api';
+import { deSerializeUser } from './middleware/deserializeUser';
 import conf from './config';
 
 const app = express();
@@ -26,15 +27,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-app.use(session({ 
+/*app.use(session({ 
   secret: conf.secret,
   resave: false, 
   saveUninitialized: true 
-}));
+}));*/
 // use JWT auth to secure the api
-app.use('/api', expressJwt({ secret: conf.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
-
-
+app.use('/api', expressJwt({ secret: conf.secret })
+  .unless({ path: ['/api/users/register'] }));
+app.use(deSerializeUser(null,null,null));
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/../public'));
@@ -42,8 +43,8 @@ app.use(express.static(__dirname + '/../public'));
 app.use('/js', express.static(__dirname + '/../../node_modules/angular'));
 // redirect JS Angular UI Route
 app.use('/js', express.static(__dirname + '/../../node_modules/angular-ui-router/release'));
-// redirect JS Angular Resource
-app.use('/js', express.static(__dirname + '/../../node_modules/angular-resource'));
+// redirect JS Angular JWT
+app.use('/js', express.static(__dirname + '/../../node_modules/angular-jwt/dist'));
 // redirect JS bootstrap 
 app.use('/js', express.static(__dirname + '/../../node_modules/bootstrap/dist/js'));
 // redirect JS jQuery
