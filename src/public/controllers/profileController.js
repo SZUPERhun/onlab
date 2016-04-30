@@ -1,7 +1,7 @@
 angular.module('profile')
   .controller('ProfileController', Controller);
 
-function Controller(UserService) {
+function Controller($state, UserService) {
   const vm = this;
 
   vm.currentUser = null;

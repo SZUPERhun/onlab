@@ -1,4 +1,8 @@
-<h1>Edit {{vm.currentUser.name}}!!</h1>
-<h1>My Account</h1>
-
+<h1>My Profile</h1>
+<ul style="list-style-type:none">
+    <li>Name: {{vm.currentUser.name}}</li>
+    <li>E-mail: {{vm.currentUser.email}}</li>
+    <li>First Name: {{vm.currentUser.firstName}}</li>
+    <li>Last Name: {{vm.currentUser.lastName}}</li>
+</ul>
 <button class="btn btn-primary" ui-sref="profile.settings">Settings</button>

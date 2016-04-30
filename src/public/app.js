@@ -3,7 +3,12 @@ angular.module('appFront', ['ui.router', 'angular-jwt', 'index', 'event', 'user'
   .run(run);
 
 function config($locationProvider, $httpProvider, jwtInterceptorProvider) {
-  $locationProvider.html5Mode(true);
+  /**
+   * pretty links but unrefreshable
+   */
+  //$locationProvider.html5Mode(true);
+
+  
   /*jwtInterceptorProvider.tokenGetter = ['UserService', function(UserService) {
    //console.log(UserService.GetToken());
    return UserService.GetToken();

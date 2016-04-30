@@ -1,36 +1,40 @@
-<div class="form-container">
-    <form method="post">
-        <div class="form-group">
-            <label for="name">Username</label>
-            <input type="text" name="name" id="name"
-                   class="form-control"
-                   ng-model="vm.currentUser.name" required />
-        </div>
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" name="email" id="email"
-                   class="form-control"
-                   ng-model="vm.currentUser.email" required />
-        </div>
-        <div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text" name="firstName" id="firstName"
-                   class="form-control"
-                   ng-model="vm.currentUser.firstName" required />
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last name</label>
-            <input type="text" name="lastName" id="lastName"
-                   class="form-control"
-                   ng-model="vm.currentUser.lastName" required />
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a ui-sref="profile.home" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
+<div class="col-md-3"></div>
+<div class="col-md-4">
+    <h1>Profile Settings</h1>
+    <div class="form-container">
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Username</label>
+                <input type="text" name="name" id="name"
+                       class="form-control"
+                       ng-model="vm.currentUser.name" required />
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email"
+                       class="form-control"
+                       ng-model="vm.currentUser.email" required />
+            </div>
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" id="firstName"
+                       class="form-control"
+                       ng-model="vm.currentUser.firstName" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" name="lastName" id="lastName"
+                       class="form-control"
+                       ng-model="vm.currentUser.lastName" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a ui-sref="profile.home" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>

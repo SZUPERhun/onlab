@@ -7,6 +7,7 @@ function Controller($rootScope, $state, $window, EventService, FlashService, Use
   vm.event = null;
   vm.events = null;
   vm.eventCreatorID = null;
+  vm.creatorName = null;
   vm.createEvent = createEvent;
   vm.saveEvent = saveEvent;
   vm.deleteEvent = deleteEvent;
@@ -25,29 +26,19 @@ function Controller($rootScope, $state, $window, EventService, FlashService, Use
         if (toState.name === 'events.detail' && toParams.id) {
           EventService.GetById(toParams.id).then(function (eventById) {
             vm.event = eventById;
-            console.log($state.current);
+            UserService.GetById(vm.event._creator).then(function (user) {
+              vm.creatorName = user.name;
+            });
           });
         }
       });
   }
 
-  function listEvents() {
-    EventService.GetAll().then(function (events) {
-      vm.events = events;
-    });
-  }
-
-  function fillCreator() {
-    UserService.GetCurrent().then(function (user) {
-      vm.eventCreator = user;
-    });
-  }
-
   function createEvent() {
-    console.log(vm.event);
     EventService.Create(vm.event)
       .then(function () {
         FlashService.Success('Event created');
+        $state.go('events.list');
       })
       .catch(function (error) {
         FlashService.Error(error);

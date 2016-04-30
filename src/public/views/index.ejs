@@ -14,13 +14,18 @@
 </head>
 <body>
     <!-- header -->
-    <%- include('partials/header.html') %>
-
+    <div class="row">
+        <%- include('partials/header.html') %>
+    </div>
     <!-- main -->
-    <main ui-view></main>
-
+    <div class="row">
+        <div class="col-md-1"></div>
+        <main ui-view class="col-md-10 container"></main>
+    </div>
     <!-- footer -->
-    <%- include('partials/footer.html') %>
+    <div class="row">
+        <%- include('partials/footer.html') %>
+    </div>
 
     <!-- external scripts -->
     <script src="/js/jquery.min.js"></script>

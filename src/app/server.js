@@ -32,8 +32,8 @@ app.use(session({
  saveUninitialized: true 
  }));
 // use JWT auth to secure the api
-/*app.use('/api', expressJwt({ secret: conf.secret })
-  .unless({ path: ['/api/users/authenticate', '/api/users/register'] }));*/
+app.use('/api', expressJwt({ secret: conf.secret })
+  .unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/../public'));

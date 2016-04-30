@@ -1,5 +1,4 @@
-<ul>
-    <li ng-repeat="event in vm.events">
-        <a href="events/id/{{event._id}}">{{event.name}}</a>
-    </li>
-</ul>
+<h2 ng-if="vm.events.length === 0">No events found</h2>
+<div ng-repeat="event in vm.events">
+    <a href="events/id/{{event._id}}">{{event.name}}</a>
+</div>

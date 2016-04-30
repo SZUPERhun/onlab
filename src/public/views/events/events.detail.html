@@ -1,2 +1,8 @@
-<h3>{{ vm.event.name }}</h3>
-<a href="/events">Cancel</a>
+<h1>Event details</h1>
+<ul style="list-style-type:none">
+    <li>Name: {{vm.event.name}}</li>
+    <li>Creator: {{vm.creatorName}}</li>
+    <li>Description: {{vm.event.description}}</li>
+    <li>Location: {{vm.event.location}}</li>
+</ul>
+<a ui-sref="events.list">Cancel</a>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="appFront">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,29 +10,33 @@
     <link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 <body>
-
-<div class="form-container">
-    <h2>Login</h2>
-    <% if(locals.error) { %>
-    <div class="alert alert-danger"><%= error %></div>
-    <% } %>
-    <% if(locals.success) { %>
-    <div class="alert alert-success"><%= success %></div>
-    <% } %>
-    <form method="post">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" value="<%= locals.name || '' %>" class="form-control" />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="form-container">
+            <h2>Login</h2>
+            <% if(locals.error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+            <% } %>
+            <% if(locals.success) { %>
+            <div class="alert alert-success"><%= success %></div>
+            <% } %>
+            <form method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="<%= locals.name || '' %>" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="/register" class="btn btn-link">Register</a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" />
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/register" class="btn btn-link">Register</a>
-        </div>
-    </form>
+    </div>
 </div>
 
 <script src="/js/jquery.min.js"></script>
