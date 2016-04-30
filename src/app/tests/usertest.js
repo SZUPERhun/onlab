@@ -13,19 +13,22 @@ beforeEach(() => {
 
 describe('Users', () => {
   const initUserName = chance.name();
+  const initUserPassword = chance.cf();
+  let token;
 
-  beforeEach(function(done) {
-    const testUser = new User({
-      name: initUserName,
-    });
-    testUser.save(function() {
-      done();
-    });
+  beforeEach(async function() {
+    await request(app)
+      .post('/api/users/register')
+      .send({ 'name': initUserName, 'password': initUserPassword});
+    token = await request(app)
+      .post('/api/users/authenticate')
+      .send({ 'name': initUserName, 'password': initUserPassword});
   });
 
   it('should list ALL users on /api/users GET', async function() {
     const res = await request(app)
       .get('/api/users')
+      .set('Authorization', 'Bearer ' + token)
       .expect(200)
       .expect('Content-Type', /json/);
     expect(res.body).to.be.a('array');
@@ -37,6 +40,7 @@ describe('Users', () => {
     const postUserName = chance.name();
     const res = await request(app)
       .post('/api/users')
+      .set('Authorization', 'Bearer ' + token)
       .send({ 'name': postUserName })
       .expect(200)
       .expect('Content-Type', /json/);
@@ -53,6 +57,7 @@ describe('Users', () => {
     const data = await testUser.save();
     const res = await request(app)
       .get('/api/users/' + data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200)
       .expect('Content-Type', /json/);
     expect(res.body).to.be.a('object');
@@ -64,10 +69,12 @@ describe('Users', () => {
     const putUserName = chance.name();
     const response = await request(app)
       .get('/api/users')
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     expect(response.body[0]).to.have.property('_id');
     const res = await request(app)
       .put('/api/users/' + response.body[0]._id)
+      .set('Authorization', 'Bearer ' + token)
       .send({ 'name': putUserName })
       .expect(200)
       .expect('Content-Type', /json/);
@@ -79,10 +86,12 @@ describe('Users', () => {
   it('should delete a SINGLE User on /api/users/<id> DELETE', async function() {
     const response = await request(app)
       .get('/api/users')
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     expect(response.body[0]).to.have.property('_id');
     const res = await request(app)
       .delete('/api/users/' + response.body[0]._id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200)
       .expect('Content-Type', /json/);
     expect(res.body).to.be.a('object');
