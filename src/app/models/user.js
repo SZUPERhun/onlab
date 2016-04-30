@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
@@ -6,18 +7,33 @@ const SALT_WORK_FACTOR = 10;
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    /*required: true,*/
+    required: true,
+    unique: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
   },
   password: {
     type: String,
-    /*required: true,*/
+    required: true,
   },
   email: {
     type: String,
-    /*required: true,
-     unique: true,*/
+    required: true,
+    unique: true,
   },
-  admin: Boolean,
+  roles: {
+    type: [{
+      type: String,
+      enum: ['user', 'admin']
+    }],
+    default: ['user']
+  },
 });
 
 userSchema.pre('save', function(next) {

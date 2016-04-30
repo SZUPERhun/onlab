@@ -94,7 +94,7 @@ router.get('/current', async function(req, res, next) {
 });
 
 /* DELETE /api/users all */
-/*
+
  router.delete('/', async function(req, res, next) {
  try {
  const user = await User.remove();
@@ -103,6 +103,6 @@ router.get('/current', async function(req, res, next) {
  return next(e);
  }
  });
- */
+ 
 
 module.exports = router;

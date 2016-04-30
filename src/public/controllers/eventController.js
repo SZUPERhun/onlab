@@ -1,11 +1,13 @@
 angular.module('event')
   .controller('EventController', Controller);
 
-function Controller($rootScope, $window, EventService, FlashService) {
+function Controller($rootScope, $state, $window, EventService, FlashService, UserService) {
   const vm = this;
 
   vm.event = null;
   vm.events = null;
+  vm.eventCreatorID = null;
+  vm.createEvent = createEvent;
   vm.saveEvent = saveEvent;
   vm.deleteEvent = deleteEvent;
 
@@ -15,13 +17,40 @@ function Controller($rootScope, $window, EventService, FlashService) {
     EventService.GetAll().then(function (events) {
       vm.events = events;
     });
+    UserService.GetCurrent().then(function (user) {
+      vm.eventCreatorID = user._id;
+    });
     $rootScope.$on('$stateChangeStart',
-      function(event, toState, toParams, fromState, fromParams, options) {
-        if (toParams.id) {
+      function(event, toState, toParams) {
+        if (toState.name === 'events.detail' && toParams.id) {
           EventService.GetById(toParams.id).then(function (eventById) {
             vm.event = eventById;
+            console.log($state.current);
           });
         }
+      });
+  }
+
+  function listEvents() {
+    EventService.GetAll().then(function (events) {
+      vm.events = events;
+    });
+  }
+
+  function fillCreator() {
+    UserService.GetCurrent().then(function (user) {
+      vm.eventCreator = user;
+    });
+  }
+
+  function createEvent() {
+    console.log(vm.event);
+    EventService.Create(vm.event)
+      .then(function () {
+        FlashService.Success('Event created');
+      })
+      .catch(function (error) {
+        FlashService.Error(error);
       });
   }
 

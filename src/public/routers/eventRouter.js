@@ -16,7 +16,10 @@ angular.module('event')
         url: '',
         templateUrl: '/views/events/events.list.html',
       })
-
+      .state('events.create', {
+        url: '/create',
+        templateUrl: '/views/events/events.create.html',
+      })
       .state('events.detail', {
         url: '/id/:id',
         templateUrl: '/views/events/events.detail.html',
