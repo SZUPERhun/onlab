@@ -7,7 +7,6 @@ function Controller($rootScope, $state, $window, EventService, FlashService, Use
   vm.event = null;
   vm.events = null;
   vm.eventCreatorID = null;
-  vm.creatorName = null;
   vm.createEvent = createEvent;
   vm.saveEvent = saveEvent;
   vm.deleteEvent = deleteEvent;
@@ -26,9 +25,6 @@ function Controller($rootScope, $state, $window, EventService, FlashService, Use
         if (toState.name === 'events.detail' && toParams.id) {
           EventService.GetById(toParams.id).then(function (eventById) {
             vm.event = eventById;
-            UserService.GetById(vm.event._creator).then(function (user) {
-              vm.creatorName = user.name;
-            });
           });
         }
       });

@@ -6,7 +6,7 @@ function config($locationProvider, $httpProvider, jwtInterceptorProvider) {
   /**
    * pretty links but unrefreshable
    */
-  //$locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 
   
   /*jwtInterceptorProvider.tokenGetter = ['UserService', function(UserService) {

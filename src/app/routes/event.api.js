@@ -7,7 +7,7 @@ const router = express.Router();
 /* GET /api/events listing. */
 router.get('/', async function(req, res, next) {
   try {
-    const event = await Event.find();
+    const event = await Event.find().populate('_creator', 'name');
     return res.json(event);
   } catch (e) {
     return next(e);
@@ -27,7 +27,7 @@ router.post('/', async function(req, res, next) {
 /* GET /api/events/id/:id */
 router.get('/id/:id', async function(req, res, next) {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate('_creator', 'name');
     return res.json(event);
   } catch (e) {
     return next(e);
