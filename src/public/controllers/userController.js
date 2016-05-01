@@ -9,25 +9,49 @@ function Controller($rootScope, $state, $window, UserService, FlashService) {
   vm.currentUser = null;
   vm.saveUser = saveUser;
   vm.deleteUser = deleteUser;
-
+  vm.registerUser = registerUser;
+  vm.loginUser = loginUser;
+  
   initController();
 
   function initController() {
     // get current user
-    UserService.GetCurrent().then(function (user) {
+    UserService.GetCurrent($window.token).then(function (user) {
       vm.currentUser = user;
     });
     UserService.GetAll().then(function (users) {
       vm.users = users;
     });
     $rootScope.$on('$stateChangeStart',
-      function(event, toState, toParams, fromState, fromParams, options) {
-        if (toParams.id) {
+      function(event, toState, toParams) {
+        if (toState.name === 'users.detail'&& toParams.id) {
           UserService.GetById(toParams.id).then(function (user) {
             vm.user = user;
           });
         }
     });
+  }
+
+  function registerUser() {
+    UserService.Create(vm.user)
+      .then(function () {
+        $state.go('login');
+        FlashService.Success('User registered');
+      })
+      .catch(function (error) {
+        FlashService.Error(error);
+      });
+  }
+
+  function loginUser() {
+    UserService.Authenticate()
+      .then(function (token) {
+        $state.go('index.home');
+        $window.token = token;
+      })
+      .catch(function (error) {
+        FlashService.Error(error);
+      });
   }
 
   function saveUser() {

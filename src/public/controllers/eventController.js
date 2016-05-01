@@ -17,7 +17,7 @@ function Controller($rootScope, $state, $window, EventService, FlashService, Use
     EventService.GetAll().then(function (events) {
       vm.events = events;
     });
-    UserService.GetCurrent().then(function (user) {
+    UserService.GetCurrent($window.token).then(function (user) {
       vm.eventCreatorID = user._id;
     });
     $rootScope.$on('$stateChangeStart',

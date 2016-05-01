@@ -32,9 +32,9 @@ app.use(session({
  saveUninitialized: true 
  }));
 // use JWT auth to secure the api
-app.use('/api', expressJwt({ secret: conf.secret })
+/*app.use('/api', expressJwt({ secret: conf.secret })
   .unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
-
+*/
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/../public'));
 // redirect JS Angular
@@ -54,8 +54,8 @@ app.use('/css', express.static(__dirname + '/../../node_modules/bootstrap/dist/c
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/events', events);
-app.use('/login', login);
-app.use('/register', register);
+/*app.use('/login', login);
+/*app.use('/register', register);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(conf.database, function(err) {

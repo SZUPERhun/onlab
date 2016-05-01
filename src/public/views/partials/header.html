@@ -4,7 +4,7 @@
         <li ng-class="{active: activeTab === 'events'}"><a ui-sref="events.list">Events</a></li>
         <li ng-class="{active: activeTab === 'users'}"><a ui-sref="users.list">Users</a></li>
         <li ng-class="{active: activeTab === 'profile'}"><a ui-sref="profile.home">Profile</a></li>
-        <li><a href="/login" target="_self">Logout</a></li>
+        <li><a ui-sref="login">Logout</a></li>
     </ul>
     <div class="flash-message" ng-if="flash">
         <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>

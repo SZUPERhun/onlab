@@ -4,6 +4,18 @@ angular.module('user')
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
+      .state('login', {
+        url: '/login',
+        templateUrl: '/views/users/login.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: '/views/users/register.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+      })
       .state('users', {
         abstract: true,
         url: '/users',

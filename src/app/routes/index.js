@@ -8,10 +8,9 @@ const router = express.Router();
  */
 
 router.get('/', function(req, res) {
-  if (req.path !== '/login' && !req.session.token) {
-    return res.redirect('/login'/* + '?returnUrl=' + encodeURIComponent('/' + req.path)*/);
-  }
-  return res.render('index');
+  /*if (req.path !== '/login' && !req.session.token) {
+    return res.redirect('/login' + '?returnUrl=' + encodeURIComponent('/' + req.path));
+  */return res.render('index');
 });
 
 // make JWT token available to angular app

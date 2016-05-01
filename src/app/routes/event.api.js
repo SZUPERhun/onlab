@@ -57,8 +57,7 @@ router.delete('/id/:id', async function(req, res, next) {
 });
 
 /* DELETE /api/events all */
-
- router.delete('/', async function(req, res, next) {
+router.delete('/', async function(req, res, next) {
  try {
  const event = await Event.remove();
  return res.json(event);

@@ -6,7 +6,7 @@ function config($locationProvider, $httpProvider, jwtInterceptorProvider) {
   /**
    * pretty links but unrefreshable
    */
-  $locationProvider.html5Mode(true);
+  //$locationProvider.html5Mode(true);
 
   
   /*jwtInterceptorProvider.tokenGetter = ['UserService', function(UserService) {
@@ -18,10 +18,13 @@ function config($locationProvider, $httpProvider, jwtInterceptorProvider) {
 
 function run($http, $rootScope, $window) {
   // add JWT token as default auth header
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.sessionStorage.jwtToken;
-
+  if ($window.token) {
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.token;
+  }
   // update active tab on state change
   $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-    $rootScope.activeTab = toState.data.activeTab;
+    if (!(toState.name === 'login' || toState.name === 'register')) {
+      $rootScope.activeTab = toState.data.activeTab;
+    }
   });
 }

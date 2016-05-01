@@ -4,6 +4,7 @@ angular.module('appFront')
 function Service($http, $q) {
   const service = {};
 
+  service.Authenticate = Authenticate;
   service.GetCurrent = GetCurrent;
   service.GetAll = GetAll;
   service.GetById = GetById;
@@ -14,8 +15,12 @@ function Service($http, $q) {
 
   return service;
 
-  function GetCurrent() {
-    return $http.get('/api/users/current').then(handleSuccess, handleError);
+  function Authenticate() {
+    return $http.post('/api/users/authenticate').then(handleSuccess, handleError);
+  }
+
+  function GetCurrent(token) {
+    return $http.get('/api/users/current/' + token).then(handleSuccess, handleError);
   }
 
   function GetAll() {

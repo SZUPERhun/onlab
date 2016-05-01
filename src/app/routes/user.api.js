@@ -69,13 +69,15 @@ router.post('/register', async function(req, res, next) {
   }
 });
 
-/* POST /api/users/authenticate */
+/* GET /api/users/authenticate */
 router.post('/authenticate', async function(req, res, next) {
   try {
     let token;
     const user = await User.findOne({ name: req.body.name });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      token = jwt.sign({sub: user._id}, conf.secret)
+      token = jwt.sign(user, conf.secret, {
+        expiresInMinutes: 1440 // expires in 24 hours
+      });
     }
     return res.json({ token: token });
   } catch (e) {
@@ -83,10 +85,10 @@ router.post('/authenticate', async function(req, res, next) {
   }
 });
 
-/* GET /api/users/current */
-router.get('/current', async function(req, res, next) {
+/* GET /api/users/current/:token */
+router.get('/current/:token', async function(req, res, next) {
   try {
-    const user = await User.findById(jwt.decode(req.session.token, conf.secret).sub);
+    const user = await User.findById(jwt.decode(req.params.token, conf.secret));
       return res.json(user);
   } catch (e) {
     return next(e);
@@ -94,8 +96,7 @@ router.get('/current', async function(req, res, next) {
 });
 
 /* DELETE /api/users all */
-
- router.delete('/', async function(req, res, next) {
+router.delete('/', async function(req, res, next) {
  try {
  const user = await User.remove();
  return res.json(user);
