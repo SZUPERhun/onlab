@@ -14,6 +14,7 @@ import login from './routes/login.api';
 import register from './routes/register.api';
 import users from './routes/user.api';
 import events from './routes/event.api';
+import clubs from './routes/club.api';
 import conf from './config';
 
 const app = express();
@@ -32,9 +33,9 @@ app.use(session({
  saveUninitialized: true 
  }));
 // use JWT auth to secure the api
-app.use('/api', expressJwt({ secret: conf.secret })
+/*app.use('/api', expressJwt({ secret: conf.secret })
   .unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
-
+*/
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/../public'));
 // redirect JS Angular
@@ -54,6 +55,7 @@ app.use('/css', express.static(__dirname + '/../../node_modules/bootstrap/dist/c
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/events', events);
+app.use('/api/clubs', clubs);
 app.use('/login', login);
 app.use('/register', register);
 
